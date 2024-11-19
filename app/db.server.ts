@@ -1,20 +1,11 @@
 import admin from 'firebase-admin';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAhqcfPGtjVgPLe6Li9meTyEMLjThXucJw",
-  authDomain: "the-weekly-score-b729c.firebaseapp.com",
-  projectId: "the-weekly-score-b729c",
-  storageBucket: "the-weekly-score-b729c.firebasestorage.app",
-  messagingSenderId: "902234154686",
-  appId: "1:902234154686:web:5f20448e5ad9623c0ae0ef",
-  measurementId: "G-D9VDX01FV0"
-};
-
-
 console.log('Initializing Firebase Admin SDK...');
+const serviceAccount = require('../serviceAccountKey.json');
+
 
 if (!admin.apps.length){
-  admin.initializeApp(firebaseConfig);
+  admin.initializeApp(serviceAccount);
 }
 
 
