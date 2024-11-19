@@ -143,10 +143,10 @@ export default function SignUp() {
                 required
                 disabled={isSubmitting}
               />
-              {/*@ts-expect-error*/}
+              {/*@ts-expect-error TODO item 1*/}
               {actionData?.errors?.email ? (
                 <div className="pt-1 text-red-700" id="email-error">
-                  {/*@ts-expect-error*/}
+                  {/*@ts-expect-error TODO item 1*/}
                   {actionData.errors.email}
                 </div>
               ) : null}
