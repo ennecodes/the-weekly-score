@@ -10,7 +10,7 @@ FROM base as deps
 WORKDIR /myapp
 
 ADD package.json yarn.lock .npmrc ./
-RUN yarn install --include=dev && yarn run remix --version
+RUN yarn install --include=dev
 
 # Setup production node_modules
 FROM base as production-deps
