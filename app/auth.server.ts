@@ -1,4 +1,4 @@
-import { json, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 
 import { auth, getSessionToken } from "~/db.server";
 
@@ -7,7 +7,7 @@ import { getSession, commitSession, destroySession } from "./session.server";
 export async function requireUser(request: Request) {
   const session = await getSession(request.headers.get("Cookie"));
   const sessionToken = session.get("session");
-  
+
   if (!sessionToken) {
     throw redirect("/login");
   }
@@ -41,20 +41,19 @@ export async function logout(request: Request) {
   });
 }
 
-
 export async function getUserFromSession(request: Request) {
-    const session = await getSession(request.headers.get("Cookie"));
-    const sessionToken = session.get("session");
-  
-    if (!sessionToken) {
-      return null;
-    }
-  
-    try {
-      const decodedClaims = await auth.verifySessionCookie(sessionToken);
-      return decodedClaims;
-    } catch (error) {
-      // Session is invalid or expired
-      return null;
-    }
+  const session = await getSession(request.headers.get("Cookie"));
+  const sessionToken = session.get("session");
+
+  if (!sessionToken) {
+    return null;
   }
+
+  try {
+    const decodedClaims = await auth.verifySessionCookie(sessionToken);
+    return decodedClaims;
+  } catch (error) {
+    // Session is invalid or expired
+    return null;
+  }
+}

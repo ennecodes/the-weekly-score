@@ -7,20 +7,18 @@ import { json, redirect } from "@remix-run/node";
 import { Link, useActionData, useNavigation } from "@remix-run/react";
 import { useState } from "react";
 
-import { createUserSession, getUserFromSession } from "~/models/auth.server";
+import { createUserSession, getUserFromSession } from "~/auth.server";
 import { signUp } from "~/utils/firebase.client";
 
-// export const loader = async ({ request }: LoaderFunctionArgs) => {
-//   try {
-//   const user = await getUserFromSession(request);
-//   if (user) return redirect("/");
-//   }
-//   catch {
-//     return json({});
-//   }
-//   return json({});
-
-// };
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  try {
+    const user = await getUserFromSession(request);
+    if (user) return redirect("/");
+  } catch {
+    return json({});
+  }
+  return json({});
+};
 
 // export const action = async ({ request }: ActionFunctionArgs) => {
 //   const formData = await request.formData();
@@ -51,7 +49,6 @@ import { signUp } from "~/utils/firebase.client";
 
 //   const authClient = getAuth();
 
-
 //   const user = await createUserWithEmailAndPassword(authClient, email, password);
 
 //   try {
@@ -76,7 +73,7 @@ import { signUp } from "~/utils/firebase.client";
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const idToken = formData.get("idToken");
-  
+
   if (typeof idToken !== "string") {
     return json({ error: "Invalid token" }, { status: 400 });
   }
@@ -101,19 +98,21 @@ export default function SignUp() {
 
     try {
       const idToken = await signUp(email, password);
-      const form = document.createElement('form');
-      form.method = 'post';
-      
-      const tokenInput = document.createElement('input');
-      tokenInput.type = 'hidden';
-      tokenInput.name = 'idToken';
+      const form = document.createElement("form");
+      form.method = "post";
+
+      const tokenInput = document.createElement("input");
+      tokenInput.type = "hidden";
+      tokenInput.name = "idToken";
       tokenInput.value = idToken;
-      
+
       form.appendChild(tokenInput);
       document.body.appendChild(form);
       form.submit();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred during login");
+      setError(
+        err instanceof Error ? err.message : "An error occurred during login",
+      );
       setIsLoading(false);
     }
   };
@@ -122,10 +121,10 @@ export default function SignUp() {
 
   return (
     <div className="flex min-h-full flex-col justify-center antialiased">
-      <div className="mx-auto w-full max-w-md px-8 bg-pink-50 py-8 rounded-md">
-      <h2 className="text-center pb-2">Sign Up</h2>
+      <div className="mx-auto w-full max-w-md rounded-md bg-pink-50 px-8 py-8">
+        <h2 className="pb-2 text-center">Sign Up</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -134,16 +133,16 @@ export default function SignUp() {
               Email address
             </label>
             <div className="mt-1">
-            <input
-            id="email"
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full rounded-md border-2 border-pink-300 bg-fuchsia-50 focus:border-pink-500 focus:ring-1 focus:ring-pink-500 shadow-sm"
-            required
-            disabled={isSubmitting}
-          />
+              <input
+                id="email"
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 block w-full rounded-md border-2 border-pink-300 bg-fuchsia-50 shadow-sm focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+                required
+                disabled={isSubmitting}
+              />
               {actionData?.errors?.email ? (
                 <div className="pt-1 text-red-700" id="email-error">
                   {actionData.errors.email}
@@ -160,16 +159,16 @@ export default function SignUp() {
               Password
             </label>
             <div className="mt-1">
-            <input
-            id="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full rounded-md border-2 border-pink-300 bg-fuchsia-50 focus:border-pink-500 focus:ring-1 focus:ring-pink-500 shadow-sm"
-            required
-            disabled={isSubmitting}
-          />
+              <input
+                id="password"
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full rounded-md border-2 border-pink-300 bg-fuchsia-50 shadow-sm focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+                required
+                disabled={isSubmitting}
+              />
               {error ? (
                 <div className="pt-1 text-red-700" id="password-error">
                   {error}
@@ -179,10 +178,10 @@ export default function SignUp() {
           </div>
 
           <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fuchsia-400 hover:bg-fuchsia-700 disabled:opacity-50 disabled:bg-fuchsia-100  disabled:border-fuchsia-200"
-        >
+            type="submit"
+            disabled={isSubmitting}
+            className="flex w-full justify-center rounded-md border border-transparent bg-fuchsia-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-fuchsia-700 disabled:border-fuchsia-200 disabled:bg-fuchsia-100 disabled:opacity-50"
+          >
             Create Account
           </button>
           <div className="flex items-center justify-center">

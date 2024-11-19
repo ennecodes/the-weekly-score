@@ -1,13 +1,11 @@
-import admin from 'firebase-admin';
+import admin from "firebase-admin";
 
-console.log('Initializing Firebase Admin SDK...');
-const serviceAccount = require('../serviceAccountKey.json');
+console.log("Initializing Firebase Admin SDK...");
+const serviceAccount = require("../serviceAccountKey.json");
 
-
-if (!admin.apps.length){
+if (!admin.apps.length) {
   admin.initializeApp(serviceAccount);
 }
-
 
 // Move auth definition here to ensure app initialization is complete
 const auth = admin.auth();
