@@ -28,7 +28,7 @@ jobs:
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy the-weekly-score-app \
-        --region getactions.GCP_REGION \
+        --region us-east1 \
         --source . \
         --allow-unauthenticated
 
