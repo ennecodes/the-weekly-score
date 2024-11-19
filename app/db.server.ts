@@ -1,10 +1,18 @@
 import admin from "firebase-admin";
 
-console.log("Initializing Firebase Admin SDK...");
-const serviceAccount = require("../serviceAccountKey.json");
+const firebaseConfig = {
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY,
+  clientId: process.env.FIREBASE_CLIENT_ID,
+  client_x509_cert_uri: process.env.FIREBASE_CLIENT_X509_cert_uri,
+};
+
 
 if (!admin.apps.length) {
-  admin.initializeApp(serviceAccount);
+  admin.initializeApp(firebaseConfig);
 }
 
 // Move auth definition here to ensure app initialization is complete

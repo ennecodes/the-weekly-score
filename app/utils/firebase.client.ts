@@ -1,5 +1,4 @@
-import { redirect } from "@remix-run/node";
-import { initializeApp } from "firebase/app";
+import {initializeApp} from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -7,16 +6,21 @@ import {
   type Auth,
 } from "firebase/auth";
 
-const serviceAccount = require("../../serviceAccountKey.json");
 
 let auth: Auth | null = null;
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAhqcfPGtjVgPLe6Li9meTyEMLjThXucJw",
+  authDomain: "the-weekly-score-b729c.firebaseapp.com",
+  projectId: "the-weekly-score-b729c",
+};
 
 // Initialize Firebase for client-side
 function getClientAuth() {
   if (typeof window === "undefined") return null;
 
   if (!auth) {
-    const app = initializeApp(serviceAccount);
+    const app = initializeApp(firebaseConfig);
     auth = getAuth(app);
   }
 

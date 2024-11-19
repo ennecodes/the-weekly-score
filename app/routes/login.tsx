@@ -1,5 +1,5 @@
 import {
-  ActionFunctionArgs,
+  ActionFunctionArgs, json,
   LoaderFunctionArgs,
   redirect,
 } from "@remix-run/node";
@@ -14,9 +14,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     const user = await getUserFromSession(request);
     if (user) return redirect("/");
   } catch {
-    return Response.json({});
+    return json({});
   }
-  return Response.json({});
+  return json({});
 };
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -24,7 +24,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const idToken = formData.get("idToken");
 
   if (typeof idToken !== "string") {
-    return Response.json({ error: "Invalid token" }, { status: 400 });
+    return json({ error: "Invalid token" }, { status: 400 });
   }
 
   return createUserSession(idToken, "/");
@@ -70,7 +70,7 @@ export default function Login() {
     <div className="flex min-h-full flex-col justify-center antialiased">
       <div className="mx-auto w-full max-w-md rounded-md bg-pink-50 px-8 py-8">
         <h2 className="pb-2 text-center">Login</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form className="space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -110,7 +110,8 @@ export default function Login() {
           </div>
 
           <button
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             disabled={isSubmitting}
             className="flex w-full justify-center rounded-md border border-transparent bg-fuchsia-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-fuchsia-700 disabled:border-fuchsia-200 disabled:bg-fuchsia-100 disabled:opacity-50"
           >
