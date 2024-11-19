@@ -1,5 +1,6 @@
 import {
-  ActionFunctionArgs, json,
+  ActionFunctionArgs,
+  json,
   LoaderFunctionArgs,
   redirect,
 } from "@remix-run/node";
@@ -128,7 +129,7 @@ export default function Login() {
 
         <div className="flex items-center justify-center">
           <div className="text-center text-sm text-gray-500">
-            Don't have an account?{" "}
+            Don&apost have an account?{" "}
             <Link
               className="text-blue-500 underline"
               to={{

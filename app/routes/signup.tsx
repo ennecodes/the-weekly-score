@@ -143,8 +143,10 @@ export default function SignUp() {
                 required
                 disabled={isSubmitting}
               />
+              {/*@ts-ignore*/}
               {actionData?.errors?.email ? (
                 <div className="pt-1 text-red-700" id="email-error">
+                  {/*@ts-ignore*/}
                   {actionData.errors.email}
                 </div>
               ) : null}

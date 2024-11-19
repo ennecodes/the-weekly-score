@@ -10,7 +10,6 @@ const firebaseConfig = {
   client_x509_cert_uri: process.env.FIREBASE_CLIENT_X509_cert_uri,
 };
 
-
 if (!admin.apps.length) {
   admin.initializeApp(firebaseConfig);
 }

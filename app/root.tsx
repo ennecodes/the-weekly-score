@@ -10,8 +10,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import stylesheet from "~/tailwind.css";
 import { getUserFromSession } from "~/auth.server"; // Assuming you have a firebase config file exporting firebaseApp
+import stylesheet from "~/tailwind.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },

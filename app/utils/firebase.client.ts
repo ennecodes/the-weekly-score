@@ -1,11 +1,10 @@
-import {initializeApp} from "firebase/app";
+import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
   type Auth,
 } from "firebase/auth";
-
 
 let auth: Auth | null = null;
 
