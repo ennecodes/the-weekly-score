@@ -86,9 +86,7 @@
     "vitest": "^2.1.2"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": "please-use-yarn",
-    "yarn": ">= 1.19.1"
+    "node": ">=18.0.0"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
