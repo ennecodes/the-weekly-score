@@ -9,7 +9,7 @@ FROM base as deps
 
 WORKDIR /myapp
 
-ADD package.json yarn.lock .npmrc ./
+ADD package.json yarn.lock .npmrc postcss.config.js ./
 RUN yarn install --include=dev
 
 # Setup production node_modules
@@ -29,6 +29,7 @@ WORKDIR /myapp
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 
 ADD . .
+RUN ls -la
 RUN yarn build
 
 # Finally, build the production image with minimal footprint

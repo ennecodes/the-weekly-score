@@ -27,7 +27,6 @@
   "dependencies": {
     "@prisma/client": "^5.20.0",
     "@remix-run/css-bundle": "^2.14.0",
-    "@remix-run/dev": "^2.14.0",
     "@remix-run/node": "^2.14.0",
     "@remix-run/react": "^2.14.0",
     "@remix-run/serve": "^2.14.0",
@@ -42,6 +41,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",
+    "@remix-run/dev": "^2.14.0",
     "@testing-library/cypress": "^10.0.2",
     "@testing-library/jest-dom": "^6.5.0",
     "@types/bcryptjs": "^2.4.6",
