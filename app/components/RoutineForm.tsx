@@ -1,14 +1,15 @@
+import { ActionFunction, redirect } from "@remix-run/node";
 import { Form, Link } from "@remix-run/react"
 import { useState } from "react";
 import { CiCircleMinus } from "react-icons/ci";
 import { MdOutlineAddCircleOutline} from "react-icons/md";
 
 
-
 export const RoutineForm = () => {
     const [routineName, setRoutineName] = useState<string>("");
     const [tasks, setTasks] = useState<string[]>([""]);
     return (
+      <Form method="post">
       <div className="w-screen m-auto flex justify-center content-center antialiased ">
         <div className="bg-pink-50 px-12 py-12 rounded-md ">
           <h2 className="text-center pb-2">Add New Daily Routine</h2>
@@ -74,6 +75,7 @@ export const RoutineForm = () => {
             <br />
   
             <button
+              type="submit"
               disabled={
                 routineName === "" || tasks.every((task) => task.trim() === "")
               }
@@ -88,5 +90,6 @@ export const RoutineForm = () => {
           </div>
         </div>
       </div>
+      </Form>
     );
   };

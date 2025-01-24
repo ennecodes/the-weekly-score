@@ -1,15 +1,6 @@
+import { Routine } from "@prisma/client";
 import { TaskSwitch } from "./TaskSwitch";
 
-export interface Routine {
-  id: string;
-  name: string;
-  tasks: Task[];
-}
-
-export interface Task {
-    id: string;
-    name: string;
-}
 
 export const RoutineCard = ({ routine }: { routine: Routine }) => {
   return (

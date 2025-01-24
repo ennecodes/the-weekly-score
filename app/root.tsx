@@ -31,12 +31,16 @@ export default function App() {
         <Meta />
         <Links />
       </head>
+      <body >
+      <div>
       <h1 className="text-4xl font-bold text-center">The Weekly Score</h1>
-      <body className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
+      </div>
+      <div className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        </div>
       </body>
     </html>
   );

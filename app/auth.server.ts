@@ -1,6 +1,6 @@
 import { redirect } from "@remix-run/node";
 
-import { auth, getSessionToken } from "~/db.server";
+import { auth, getSessionToken } from "~/firebase.server";
 
 import { getSession, commitSession, destroySession } from "./session.server";
 

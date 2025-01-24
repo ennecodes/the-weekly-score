@@ -1,7 +1,7 @@
 import { Dialog, DialogPanel, DialogTitle, Switch } from "@headlessui/react";
+import { Task } from "@prisma/client";
 import { useState } from "react";
 
-import { Task } from "./RoutineCard";
 
 
 export const TaskSwitch = ({ task }: { task: Task }) => {

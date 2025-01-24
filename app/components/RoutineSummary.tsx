@@ -1,6 +1,8 @@
+import { Routine } from "@prisma/client";
 import { Link } from "@remix-run/react";
 
-import { Routine, RoutineCard } from "./RoutineCard";
+import { RoutineCard } from "./RoutineCard";
+
 
 
 export const RoutineSummary = ({routines}: {routines: Routine[]}) => {
