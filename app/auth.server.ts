@@ -21,6 +21,7 @@ export async function requireUser(request: Request) {
 }
 
 export async function createUserSession(idToken: string, redirectTo: string) {
+  console.log(idToken);
   const sessionToken = await getSessionToken(idToken);
   const session = await getSession();
   session.set("session", sessionToken);
@@ -45,12 +46,17 @@ export async function getUserFromSession(request: Request) {
   const session = await getSession(request.headers.get("Cookie"));
   const sessionToken = session.get("session");
 
+  console.log(sessionToken);
+
   if (!sessionToken) {
     return null;
   }
 
   try {
+    console.log("HEEEERRREEE!!!");
     const decodedClaims = await auth.verifySessionCookie(sessionToken);
+    // Step 2: Once the session is valid, get the ID token (JWT) from Firebase Auth
+
     return decodedClaims;
   } catch (error) {
     // Session is invalid or expired

@@ -1,0 +1,101 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RoutineCard > renders correctly 1`] = `
+<div>
+  <div
+    class="rounded-lg bg-pink-100 p-4 shadow-lg"
+  >
+    <h2
+      class="mb-4 text-center text-xl font-bold"
+    >
+      Test Routine
+    </h2>
+    <ul>
+      <li
+        class="flex items-center justify-between"
+      >
+        <span>
+          Task 1
+        </span>
+        <button
+          aria-checked="false"
+          class="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-pink-600"
+          data-headlessui-state=""
+          data-testid="task-1-switch"
+          id="headlessui-switch-:r0:"
+          role="switch"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6"
+          />
+        </button>
+      </li>
+      <li
+        class="flex items-center justify-between"
+      >
+        <span>
+          Task 2
+        </span>
+        <button
+          aria-checked="false"
+          class="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-pink-600"
+          data-headlessui-state=""
+          data-testid="task-2-switch"
+          id="headlessui-switch-:r1:"
+          role="switch"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6"
+          />
+        </button>
+      </li>
+      <li
+        class="flex items-center justify-between"
+      >
+        <span>
+          Task 3
+        </span>
+        <button
+          aria-checked="false"
+          class="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-pink-600"
+          data-headlessui-state=""
+          data-testid="task-3-switch"
+          id="headlessui-switch-:r2:"
+          role="switch"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6"
+          />
+        </button>
+      </li>
+      <li
+        class="flex items-center justify-between"
+      >
+        <span>
+          Task 4
+        </span>
+        <button
+          aria-checked="false"
+          class="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-pink-600"
+          data-headlessui-state=""
+          data-testid="task-4-switch"
+          id="headlessui-switch-:r3:"
+          role="switch"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6"
+          />
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
