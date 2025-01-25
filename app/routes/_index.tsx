@@ -12,14 +12,40 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const user = await requireUser(request);
   const routines = await prisma.routine.findMany({
     where: { userId: user.uid },
-    include: { tasks: { orderBy: { order: "asc" } } },
+    include: { tasks: { orderBy: { order: "asc" } , include: {completions: {where: { createdAt: {
+      gte: new Date(new Date().setHours(0, 0, 0, 0)),
+      lt: new Date(new Date().setHours(24, 0, 0, 0)),
+    }}, take: 1}}}},
   });
 
   console.log(routines);
 
-  return json({ user , routines});
+  return json({ user, routines: routines.map(routine => ({...routine, tasks: routine.tasks.map(task => ({...task, isCompleted: task.completions.length, completionId: task.completions[0]?.id || null}))})) });
 }
 
+export async function action({ request }: LoaderFunctionArgs) {
+  const formData = await request.formData()
+  const {_action, ...values} = Object.fromEntries(formData)
+  const taskId = values.taskId as string | undefined;
+  const completionId = values.completionId as string | undefined;
+
+  console.log(taskId, completionId, _action);
+  if (_action === "check" && taskId)  {
+    await prisma.taskCompletion.create({
+      data: {
+        taskId,
+      },
+    });
+  } else if (_action === "uncheck" && completionId) {
+    await prisma.taskCompletion.delete({
+      where: {
+        id: completionId,
+      },
+    });
+  }
+
+  return json({ message: "success" }, { status: 200 });
+}
 
 export default function Index() {
   const { user , routines} = useLoaderData<typeof loader>();

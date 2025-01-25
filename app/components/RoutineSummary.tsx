@@ -1,11 +1,12 @@
-import { Routine } from "@prisma/client";
 import { Link } from "@remix-run/react";
 
 import { RoutineCard } from "./RoutineCard";
+import { RoutineDTO } from "./types";
 
 
 
-export const RoutineSummary = ({routines}: {routines: Routine[]}) => {
+
+export const RoutineSummary = ({routines}: {routines: RoutineDTO[]}) => {
     return (
     <>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
