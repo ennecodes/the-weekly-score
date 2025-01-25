@@ -1,13 +1,34 @@
+import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 import { PrismaClient } from "@prisma/client";
 import invariant from "tiny-invariant";
 
 import { singleton } from "./singleton.server";
 
+  // Instantiates a client
+  const secretmanagerClient = new SecretManagerServiceClient();
+  
+  const name = 'projects/902234154686/secrets/DATABASE_URL/versions/1';
+
+  async function getDBSecret() {
+    // Construct request
+    const request = {
+      name,
+    };
+
+    // Run request
+    const response = await secretmanagerClient.getSecret(request);
+    return response;
+  }
+
+
+
 // Hard-code a unique key, so we can look up the client when this module gets re-imported
 const prisma = singleton("prisma", getPrismaClient);
 
 function getPrismaClient() {
-  const { DATABASE_URL } = process.env;
+  
+  console.log(process.env.NODE_ENV )
+  const DATABASE_URL  = process.env.NODE_ENV == "development" ? process.env.DATABASE_URL : getDBSecret();
   invariant(typeof DATABASE_URL === "string", "DATABASE_URL env var not set");
 
   const databaseUrl = new URL(DATABASE_URL);
