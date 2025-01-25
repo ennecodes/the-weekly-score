@@ -1,4 +1,4 @@
-import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
+import { SecretManagerServiceClient} from '@google-cloud/secret-manager';
 import { PrismaClient } from "@prisma/client";
 import invariant from "tiny-invariant";
 
@@ -17,6 +17,8 @@ import { singleton } from "./singleton.server";
 
     // Run request
     const response = await secretmanagerClient.getSecret(request);
+
+    console.log(response);
     return response;
   }
 
