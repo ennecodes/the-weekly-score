@@ -8,50 +8,37 @@ import { singleton } from "./singleton.server";
   const secretmanagerClient = new SecretManagerServiceClient();
   
   const name = 'projects/902234154686/secrets/DATABASE_URL/versions/1';
-
   async function getDBSecret() {
-    // Construct request
-    const request = {
-      name,
-    };
-
-    // Run request
-    const response = await secretmanagerClient.getSecret(request);
-
-    console.log(response);
-    return response;
+    try {
+      // Access the secret version
+      const [version] = await secretmanagerClient.accessSecretVersion({ name });
+  
+      if (version?.payload?.data) {
+        console.log('🔑 Retrieved database URL from Secret Manager');
+        return version.payload.data.toString();
+      }
+  
+      throw new Error('Secret payload is empty');
+    } catch (error) {
+      console.error('❌ Failed to retrieve database URL from Secret Manager:', error);
+      throw new Error('Failed to retrieve database URL');
+    }
   }
-
 
 
 // Hard-code a unique key, so we can look up the client when this module gets re-imported
 const prisma = singleton("prisma", getPrismaClient);
 
-function getPrismaClient() {
+async function getPrismaClient() {
+  if (!process.env.DATABASE_URL) {
+    process.env.DATABASE_URL = await getDBSecret();
+  }
   
-  console.log(process.env.NODE_ENV )
-  const DATABASE_URL  = process.env.NODE_ENV == "development" ? process.env.DATABASE_URL : getDBSecret();
+  const {DATABASE_URL}  = process.env
   invariant(typeof DATABASE_URL === "string", "DATABASE_URL env var not set");
 
   const databaseUrl = new URL(DATABASE_URL);
 
-  const isLocalHost = databaseUrl.hostname === "localhost";
-
-  const PRIMARY_REGION = isLocalHost ? null : process.env.PRIMARY_REGION;
-  const FLY_REGION = isLocalHost ? null : process.env.FLY_REGION;
-
-  const isReadReplicaRegion = !PRIMARY_REGION || PRIMARY_REGION === FLY_REGION;
-
-  if (!isLocalHost) {
-    if (databaseUrl.host.endsWith(".internal")) {
-      databaseUrl.host = `${FLY_REGION}.${databaseUrl.host}`;
-    }
-
-    if (!isReadReplicaRegion) {
-      // 5433 is the read-replica port
-      databaseUrl.port = "5433";
-    }
-  }
 
   console.log(`🔌 setting up prisma client to ${databaseUrl.host}`);
   // NOTE: during development if you change anything in this function, remember
