@@ -32,12 +32,12 @@ WORKDIR /myapp
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 
 ADD prisma .
+RUN npx prisma migrate deploy
 RUN npx prisma generate
 
 ADD . .
 RUN yarn build
 
-RUN npx prisma migrate deploy
 
 # Finally, build the production image with minimal footprint
 FROM base
