@@ -1,7 +1,6 @@
 import { TaskSwitch } from "./TaskSwitch";
 import { RoutineDTO } from "./types";
 
-
 export const RoutineCard = ({ routine }: { routine: RoutineDTO }) => {
   return (
     <div className="rounded-lg bg-pink-100 p-4 shadow-lg">

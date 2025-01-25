@@ -1,18 +1,17 @@
 import { ActionFunction, redirect } from "@remix-run/node";
-import { Form, Link } from "@remix-run/react"
+import { Form, Link } from "@remix-run/react";
 import { useState } from "react";
 import { CiCircleMinus } from "react-icons/ci";
-import { MdOutlineAddCircleOutline} from "react-icons/md";
-
+import { MdOutlineAddCircleOutline } from "react-icons/md";
 
 export const RoutineForm = () => {
-    const [routineName, setRoutineName] = useState<string>("");
-    const [tasks, setTasks] = useState<string[]>([""]);
-    return (
-      <Form method="post">
-      <div className="w-screen m-auto flex justify-center content-center antialiased ">
-        <div className="bg-pink-50 px-12 py-12 rounded-md ">
-          <h2 className="text-center pb-2">Add New Daily Routine</h2>
+  const [routineName, setRoutineName] = useState<string>("");
+  const [tasks, setTasks] = useState<string[]>([""]);
+  return (
+    <Form method="post">
+      <div className="m-auto flex w-screen content-center justify-center antialiased">
+        <div className="rounded-md bg-pink-50 px-12 py-12">
+          <h2 className="pb-2 text-center">Add New Daily Routine</h2>
           <div>
             <label htmlFor="routineName">Routine Name:</label>
             <br />
@@ -23,10 +22,10 @@ export const RoutineForm = () => {
               onChange={(e) => {
                 setRoutineName(e.target.value);
               }}
-              className="w-full form-input rounded-md border-2 border-pink-300 bg-fuchsia-50 focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+              className="form-input w-full rounded-md border-2 border-pink-300 bg-fuchsia-50 focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
             />
             <br />
-  
+
             <label htmlFor="cname">Tasks:</label>
             {tasks.map((task, index) => {
               return (
@@ -42,26 +41,28 @@ export const RoutineForm = () => {
                         return updatedTasks;
                       });
                     }}
-                    className="w-full form-input rounded-md border-2 border-pink-300 bg-fuchsia-50 focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+                    className="form-input w-full rounded-md border-2 border-pink-300 bg-fuchsia-50 focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
                   />
-                  {tasks.length > 1 ? <button
+                  {tasks.length > 1 ? (
+                    <button
                       is="span"
                       type="button"
                       onClick={() => {
                         setTasks((prevTasks) => {
                           return prevTasks.filter(
-                            (_, taskIndex) => taskIndex !== index
+                            (_, taskIndex) => taskIndex !== index,
                           );
                         });
                       }}
                     >
-                        <CiCircleMinus />
-                    </button> : null}
+                      <CiCircleMinus />
+                    </button>
+                  ) : null}
                 </div>
               );
             })}
             <br />
-  
+
             <button
               type="button"
               onClick={() => {
@@ -73,7 +74,7 @@ export const RoutineForm = () => {
               <MdOutlineAddCircleOutline />
             </button>
             <br />
-  
+
             <button
               type="submit"
               disabled={
@@ -82,14 +83,13 @@ export const RoutineForm = () => {
               onClick={() => {
                 console.log({ routineName, tasks });
               }}
-              className="mt-4 bg-fuchsia-400 hover:bg-fuchsia-700 p-2 rounded-lg w-full  disabled:bg-fuchsia-100 disabled:text-slate-300 disabled:border-fuchsia-200 disabled:shadow-none
-  "
+              className="mt-4 w-full rounded-lg bg-fuchsia-400 p-2 hover:bg-fuchsia-700 disabled:border-fuchsia-200 disabled:bg-fuchsia-100 disabled:text-slate-300 disabled:shadow-none"
             >
               Add Routine
             </button>
           </div>
         </div>
       </div>
-      </Form>
-    );
-  };
+    </Form>
+  );
+};

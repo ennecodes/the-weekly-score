@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import {applicationDefault} from "firebase-admin/app";
+import { applicationDefault } from "firebase-admin/app";
 
 const firebaseConfig = {
   type: "service_account",
@@ -13,7 +13,7 @@ const firebaseConfig = {
 };
 
 if (!admin.apps.length) {
-  admin.initializeApp({credential: applicationDefault()});
+  admin.initializeApp({ credential: applicationDefault() });
 }
 
 // Move auth definition here to ensure app initialization is complete
