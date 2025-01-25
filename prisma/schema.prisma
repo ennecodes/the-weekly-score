@@ -1,0 +1,43 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Routine {
+    id        Int   @id @default(autoincrement())
+    userId    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    terminatedAt DateTime?
+    name      String
+    tasks     Task[]
+
+    @@index([userId])
+}
+
+model Task {
+    id        Int   @id @default(autoincrement())
+    routine   Routine  @relation(fields: [routineId], references: [id], onDelete: Cascade)
+    routineId Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    terminatedAt DateTime?
+    name      String
+    order     Int      // Optional, for task ordering
+    completions TaskCompletion[]
+
+    @@index([routineId])
+}
+
+model TaskCompletion {
+    id        Int           @id @default(autoincrement())
+    task      Task             @relation(fields: [taskId], references: [id], onDelete: Cascade)
+    taskId    Int
+    createdAt DateTime         @default(now())
+
+    @@index([taskId])
+}
