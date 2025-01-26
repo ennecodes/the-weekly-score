@@ -31,3 +31,5 @@ jobs:
           --region us-east1 \
           --source . \
           --allow-unauthenticated
+        env:
+          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}

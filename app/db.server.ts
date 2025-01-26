@@ -1,6 +1,7 @@
 import { SecretManagerServiceClient} from '@google-cloud/secret-manager';
 import { PrismaClient } from "@prisma/client";
 import invariant from "tiny-invariant";
+
 import { singleton } from './singleton.server';
 
   // Instantiates a client
@@ -23,7 +24,6 @@ import { singleton } from './singleton.server';
       throw new Error('Failed to retrieve database URL');
     }
   }
-
 
 // Hard-code a unique key, so we can look up the client when this module gets re-imported
 const prisma = await singleton("prisma", getPrismaClient);
